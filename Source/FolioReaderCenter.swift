@@ -231,11 +231,22 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         pageIndicatorView?.reloadView(updateShadow: true)
     }
     
-    open override func viewDidAppear(_ animated: Bool) {
+//     open override func viewDidAppear(_ animated: Bool) {
+//             super.viewDidAppear(animated)
+//             view.isUserInteractionEnabled = false
+//             if let contentOffsetY = folioReader.savedPositionForCurrentBook?["pageOffsetY"] as? CGFloat {
+//                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+//                     self?.scrollScrubber?.scrollView()?.setContentOffset(CGPoint(x: 0, y: contentOffsetY), animated: true)
+//                     self?.view.isUserInteractionEnabled = true
+//                 }
+//             }
+//         }
+    
+        open override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
-            view.isUserInteractionEnabled = false
             if let contentOffsetY = folioReader.savedPositionForCurrentBook?["pageOffsetY"] as? CGFloat {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                view.isUserInteractionEnabled = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
                     self?.scrollScrubber?.scrollView()?.setContentOffset(CGPoint(x: 0, y: contentOffsetY), animated: true)
                     self?.view.isUserInteractionEnabled = true
                 }
